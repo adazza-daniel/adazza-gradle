@@ -1,0 +1,3 @@
+apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-core.gradle'
+apply plugin: 'scala'
+

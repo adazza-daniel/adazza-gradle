@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.netflix.nebula:gradle-ospackage-plugin:4.3.0'
+    }
+}
+
+allprojects {
+    apply plugin: 'scala'
+}
+
+apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-core.gradle'
+
+configure(subprojects.findAll {it.name.endsWith('-api')}) {
+}
+
+configure(subprojects.findAll {it.name.endsWith('-client')}) {
+    dependencies {
+        compile project(":${rootProject.name}-api")
+    }
+}
+
+configure(subprojects.findAll {it.name.endsWith('-server')}) {
+    def adazzaServiceUser = 'adazzaservice'
+
+    apply plugin: 'application'
+    apply plugin: com.netflix.gradle.plugins.application.OspackageApplicationDaemonPlugin
+    ospackage {
+        os = 'LINUX' // only applied to RPM
+        user = adazzaServiceUser
+        group = adazzaServiceUser
+        //RPM versions don't allow - or ~ so we replace with .
+        version = project.version.toString().replace('~', '.').replace('-', '.')
+        preInstall file('scripts/service-install.sh')
+        arch = 'x86_64'
+    }
+    println "Daemon command line: $name $version"
+    applicationdaemon {
+        user = adazzaServiceUser
+        command = "/opt/adazza/bin/start-adazza-service $project.name $project.version"
+        autoStart = true
+    }
+
+    dependencies {
+        compile project(":${rootProject.name}-api")
+    }
+
+    run {
+        args 'server', "$projectDir/src/main/resources/app_config.yml"
+    }
+}
+

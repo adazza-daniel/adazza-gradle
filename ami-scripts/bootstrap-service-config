@@ -1,0 +1,6 @@
+#!/bin/sh
+mkdir -p /etc/adazza/service/ &&\
+aws s3 cp --recursive s3://service-config.adazza.com/service/configuration/ /etc/adazza/service/ &&\
+chown -R adazzaservice:adazzaservice /etc/adazza &&\
+chown -R adazzaservice:adazzaservice /opt/adazza
+
