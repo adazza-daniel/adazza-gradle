@@ -1,3 +1,7 @@
+/*
+Apply this plugin to the root build file to configure your finagle service.
+
+*/
 buildscript {
     repositories {
         jcenter()
@@ -6,9 +10,13 @@ buildscript {
         classpath 'com.netflix.nebula:gradle-ospackage-plugin:4.3.0'
     }
 }
+// If your root project is foo-service the name is foo.
+// The submodules for your service will then be foo-api, 
+// foo-server, foo-client.
+def serviceName = rootProject.name.replace('-service', '')
 
 allprojects {
-    apply plugin: 'scala'
+  apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
 }
 
 apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-core.gradle'
@@ -18,7 +26,7 @@ configure(subprojects.findAll {it.name.endsWith('-api')}) {
 
 configure(subprojects.findAll {it.name.endsWith('-client')}) {
     dependencies {
-        compile project(":${rootProject.name}-api")
+        compile project(":${serviceName}-api")
     }
 }
 
@@ -39,16 +47,15 @@ configure(subprojects.findAll {it.name.endsWith('-server')}) {
     println "Daemon command line: $name $version"
     applicationdaemon {
         user = adazzaServiceUser
-        command = "/opt/adazza/bin/start-adazza-service $project.name $project.version"
+        command = "/opt/adazza/bin/start-adazza-service $serviceName $project.version"
         autoStart = true
     }
 
     dependencies {
-        compile project(":${rootProject.name}-api")
+        compile project(":${serviceName}-api")
     }
 
     run {
-        args 'server', "$projectDir/src/main/resources/app_config.yml"
     }
 }
 

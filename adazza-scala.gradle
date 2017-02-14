@@ -1,0 +1,13 @@
+/* adazza scala
+ This plugin does not self apply to all projects
+
+ Users should apply this plugin within the 
+ desired project scope explicitly.
+*/
+
+apply plugin: 'scala'
+dependencies {
+  compile 'org.scala-lang:scala-library:2.12.1'
+}
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
