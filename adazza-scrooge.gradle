@@ -1,0 +1,58 @@
+/*
+Apply this plugin at the root level of your finagle scala service
+to enable scrooge compilation for your *-api submodule.
+*/
+buildscript {
+    repositories {
+        mavenCentral()
+        maven {
+            url "s3://adazza-maven-repo/release"
+            credentials(AwsCredentials) {
+                accessKey System.env.AWS_ACCESS_KEY_ID
+                secretKey System.env.AWS_SECRET_ACCESS_KEY
+            }
+        }
+        maven {
+            url "s3://adazza-maven-repo/snapshot"
+            credentials(AwsCredentials) {
+                accessKey System.env.AWS_ACCESS_KEY_ID
+                secretKey System.env.AWS_SECRET_ACCESS_KEY
+            }
+        }
+    }
+    dependencies {
+        classpath group:'com.twitter',               name:'scrooge-generator_2.12',          version:"$scroogeVersion"
+        classpath group:'com.adazza.gradle.scrooge', name:'scrooge-gradle-plugin',           version:'0.2.0'
+    }
+}
+
+configure(subprojects.findAll {it.name.endsWith('-api')}) {
+  apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
+  apply plugin: com.adazza.gradle.scrooge.ScroogePlugin
+
+  compileScrooge {
+      thriftFiles = fileTree(dir: "${projectDir}/src/main/thrift/", include: "**/*.thrift")
+      dest = file("${buildDir}/generated-sources/")
+      opts = ["--finagle", "--verbose", "-s"]
+  }
+
+  sourceSets {
+      main {
+          scala {
+              srcDir compileScrooge.dest
+          }
+          java {
+            srcDir "${projectDir}/src/main/thrift/"
+          }
+      }
+  }
+
+  compileScala.dependsOn compileScrooge
+
+  dependencies {
+    compile 'com.twitter:finagle-core_2.12:6.42.0'
+    compile 'com.twitter:finagle-thrift_2.12:6.42.0'
+    compile 'com.twitter:scrooge-core_2.12:4.14.0'
+  }
+}
+

@@ -1,3 +1,9 @@
+/*
+  Apply this plugin at the root level of your multi module scala library.
+*/
+
 apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-core.gradle'
-apply plugin: 'scala'
+allprojects {
+  apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
+}
 

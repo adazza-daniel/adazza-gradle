@@ -1,3 +1,8 @@
+/*
+The core plugin hooks up repository and publishing plugins.
+
+It should not be applied directly.
+*/
 buildscript {
     repositories { jcenter() }
     dependencies {
@@ -15,22 +20,22 @@ allprojects {
     apply plugin: nebula.plugin.publishing.maven.MavenPublishPlugin
 
     repositories {
+      mavenCentral()
+      mavenLocal()
       maven {
           url "s3://adazza-maven-repo/release"
           credentials(AwsCredentials) {
-              accessKey "$System.env.AWS_ACCESS_KEY_ID"
-              secretKey "$System.env.AWS_SECRET_ACCESS_KEY"
+              accessKey System.env.AWS_ACCESS_KEY_ID
+              secretKey System.env.AWS_SECRET_ACCESS_KEY
           }
       }
       maven {
           url "s3://adazza-maven-repo/snapshot"
           credentials(AwsCredentials) {
-              accessKey "$System.env.AWS_ACCESS_KEY_ID"
-              secretKey "$System.env.AWS_SECRET_ACCESS_KEY"
+              accessKey System.env.AWS_ACCESS_KEY_ID
+              secretKey System.env.AWS_SECRET_ACCESS_KEY
           }
       }
-      mavenLocal()
-      mavenCentral()
     }
 
     publishing {
