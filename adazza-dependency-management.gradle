@@ -34,7 +34,7 @@ allprojects {
 
             dependency  group: 'org.scalaz',            name: "scalaz-core_$scalaVersion",  version: '7.2.9'
 
-            dependency group: 'com.amazonaws' name: 'DynamoDBLocal' version: '1.11.86'
+            dependency group: 'com.amazonaws',  name: 'DynamoDBLocal',                   version: '1.11.86'
 
             dependency group: 'org.scalatest',  name: "scalatest_$scalaVersion",         version: '3.0.1'
             dependency group: 'junit',          name: 'junit',                           version: '4.12'
