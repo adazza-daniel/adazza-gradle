@@ -1,0 +1,31 @@
+/*
+Must be applied afte the scoverage plugin to attach required dependencies.
+*/
+dependencies {
+    testCompile 'com.amazonaws:DynamoDBLocal:1.11.86'
+}
+
+task copyNativeDeps(type: Copy) {
+    from (configurations.testCompile) {
+        include "*.dylib"
+        include "*.so"
+        include "*.dll"
+    }
+    into 'build/localdynamo'
+}
+
+test.dependsOn copyNativeDeps
+test.doFirst {
+    systemProperty "java.library.path", 'build/localdynamo'
+}
+
+def scoverageTaskInstance = tasks.find {
+    task -> (task.name == 'testScoverage')
+}
+
+if (scoverageTaskInstance != null) {
+    scoverageTaskInstance.dependsOn copyNativeDeps
+    scoverageTaskInstance.doFirst {
+        systemProperty "java.library.path", 'build/localdynamo'
+    }
+}
