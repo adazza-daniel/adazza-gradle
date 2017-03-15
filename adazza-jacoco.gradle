@@ -1,7 +1,0 @@
-allprojects {
-    apply plugin: "jacoco"
-    jacoco {
-        reportsDir = file("$buildDir/reports/jacoco")
-    }
-}
-

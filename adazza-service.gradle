@@ -1,6 +1,5 @@
 /*
 Apply this plugin to the root build file to configure your finagle service.
-
 */
 buildscript {
     repositories {
@@ -16,21 +15,21 @@ buildscript {
 def serviceName = rootProject.name.replace('-service', '')
 
 allprojects {
-  apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
+    apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
 }
 
 apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-core.gradle'
 
-configure(subprojects.findAll {it.name.endsWith('-api')}) {
+configure(subprojects.findAll { it.name.endsWith('-api') }) {
 }
 
-configure(subprojects.findAll {it.name.endsWith('-client')}) {
+configure(subprojects.findAll { it.name.endsWith('-client') }) {
     dependencies {
         compile project(":${serviceName}-api")
     }
 }
 
-configure(subprojects.findAll {it.name.endsWith('-server')}) {
+configure(subprojects.findAll { it.name.endsWith('-server') }) {
     def adazzaServiceUser = 'adazzaservice'
 
     apply plugin: 'application'
@@ -39,7 +38,7 @@ configure(subprojects.findAll {it.name.endsWith('-server')}) {
         os = 'LINUX' // only applied to RPM
         user = adazzaServiceUser
         group = adazzaServiceUser
-        //RPM versions don't allow - or ~ so we replace with .
+        //Versions don't allow - or ~ so we replace with .
         version = project.version.toString().replace('~', '.').replace('-', '.')
         preInstall file('scripts/service-install.sh')
         arch = 'x86_64'
