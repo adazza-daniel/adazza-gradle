@@ -1,7 +1,7 @@
 /*
 Must be applied afte the scoverage plugin to attach required dependencies.
 
-Requires dependency management.
+Requires dependency management plugin.
 */
 
 dependencies {
@@ -31,5 +31,4 @@ if (scoverageTaskInstance != null) {
   scoverageTaskInstance.doFirst {
     systemProperty "java.library.path", 'build/localdynamo'
   }
-  Must
 }
