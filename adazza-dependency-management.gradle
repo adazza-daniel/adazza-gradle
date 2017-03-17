@@ -24,6 +24,12 @@ allprojects {
         entry "scrooge-core_$scalaVersion"
       }
 
+      //This version is linked to the version used by finagle.
+      //If you change the finagle version you likely need to change this also.
+      dependencySet(group: 'com.twitter', version: '6.41.0') {
+        entry "util-core_$scalaVersion"
+      }
+
       dependencySet(group: 'com.twitter', version: '6.42.0') {
         entry "finagle-core_$scalaVersion"
         entry "finagle-thrift_$scalaVersion"
@@ -34,7 +40,7 @@ allprojects {
         entry "storehaus-algebra_$scalaVersion"
       }
 
-      dependencySet(group: 'com.adazza.common', version: '0.4.0') {
+      dependencySet(group: 'com.adazza.common', version: '0.+') {
         entry "common-testing"
         entry "common-utils"
         entry "common-finagle"
