@@ -34,6 +34,7 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
 
   apply plugin: 'application'
   apply plugin: com.netflix.gradle.plugins.application.OspackageApplicationDaemonPlugin
+
   ospackage {
     os = 'LINUX' // only applied to RPM
     user = adazzaServiceUser
@@ -41,9 +42,11 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
     //Versions don't allow - or ~ so we replace with .
     version = project.version.toString().replace('~', '.').replace('-', '.')
     preInstall file('scripts/service-install.sh')
-    arch = 'x86_64'
+    arch = 'amd64'
   }
+
   println "Daemon command line: $name $version"
+
   applicationdaemon {
     user = adazzaServiceUser
     command = "/opt/adazza/bin/start-adazza-service $serviceName $project.version"
