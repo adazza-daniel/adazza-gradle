@@ -31,7 +31,7 @@ configure(subprojects.findAll { it.name.endsWith('-client') }) {
 
 configure(subprojects.findAll { it.name.endsWith('-server') }) {
   def adazzaServiceUser = 'adazzaservice'
-
+  def package_arch = 'amd64'
   apply plugin: 'application'
   apply plugin: com.netflix.gradle.plugins.application.OspackageApplicationDaemonPlugin
 
@@ -42,7 +42,7 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
     //Versions don't allow - or ~ so we replace with .
     version = project.version.toString().replace('~', '.').replace('-', '.')
     preInstall file('scripts/service-install.sh')
-    arch = 'amd64'
+    arch = package_arch
   }
 
   println "Daemon command line: $name $version"
@@ -64,7 +64,7 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
     workingDir "$project.projectDir"
     commandLine 'deb-s3', 'upload', '--lock', '--visibility=private', '--bucket=adazza-deb-repo', '--prefix=repo',
         '--origin=ben', '-c', 'stable', '-m', 'services', '--sign', '--endpoint=s3-us-west-1.amazonaws.com',
-        "$project.buildDir/distributions/${project.name}_${version}_x86_64.deb"
+        "$project.buildDir/distributions/${project.name}_${version}_${package_arch}.deb"
   }
 
   publishDeb.dependsOn buildDeb
