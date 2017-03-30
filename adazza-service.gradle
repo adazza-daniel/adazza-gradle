@@ -2,12 +2,12 @@
 Apply this plugin to the root build file to configure your finagle service.
 */
 buildscript {
-    repositories {
-        jcenter()
-    }
-    dependencies {
-        classpath 'com.netflix.nebula:gradle-ospackage-plugin:4.3.0'
-    }
+  repositories {
+    jcenter()
+  }
+  dependencies {
+    classpath 'com.netflix.nebula:gradle-ospackage-plugin:4.3.0'
+  }
 }
 // If your root project is foo-service the name is foo.
 // The submodules for your service will then be foo-api, 
@@ -15,7 +15,7 @@ buildscript {
 def serviceName = rootProject.name.replace('-service', '')
 
 allprojects {
-    apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
+  apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
 }
 
 apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-core.gradle'
@@ -24,37 +24,45 @@ configure(subprojects.findAll { it.name.endsWith('-api') }) {
 }
 
 configure(subprojects.findAll { it.name.endsWith('-client') }) {
-    dependencies {
-        compile project(":${serviceName}-api")
-    }
+  dependencies {
+    compile project(":${serviceName}-api")
+  }
 }
 
 configure(subprojects.findAll { it.name.endsWith('-server') }) {
-    def adazzaServiceUser = 'adazzaservice'
+  def adazzaServiceUser = 'adazzaservice'
 
-    apply plugin: 'application'
-    apply plugin: com.netflix.gradle.plugins.application.OspackageApplicationDaemonPlugin
-    ospackage {
-        os = 'LINUX' // only applied to RPM
-        user = adazzaServiceUser
-        group = adazzaServiceUser
-        //Versions don't allow - or ~ so we replace with .
-        version = project.version.toString().replace('~', '.').replace('-', '.')
-        preInstall file('scripts/service-install.sh')
-        arch = 'x86_64'
-    }
-    println "Daemon command line: $name $version"
-    applicationdaemon {
-        user = adazzaServiceUser
-        command = "/opt/adazza/bin/start-adazza-service $serviceName $project.version"
-        autoStart = true
-    }
+  apply plugin: 'application'
+  apply plugin: com.netflix.gradle.plugins.application.OspackageApplicationDaemonPlugin
+  ospackage {
+    os = 'LINUX' // only applied to RPM
+    user = adazzaServiceUser
+    group = adazzaServiceUser
+    //Versions don't allow - or ~ so we replace with .
+    version = project.version.toString().replace('~', '.').replace('-', '.')
+    preInstall file('scripts/service-install.sh')
+    arch = 'x86_64'
+  }
+  println "Daemon command line: $name $version"
+  applicationdaemon {
+    user = adazzaServiceUser
+    command = "/opt/adazza/bin/start-adazza-service $serviceName $project.version"
+    autoStart = true
+  }
 
-    dependencies {
-        compile project(":${serviceName}-api")
-    }
+  dependencies {
+    compile project(":${serviceName}-api")
+  }
 
-    run {
-    }
+  run {
+  }
+
+  task publishDeb(type: Exec) {
+    workingDir "$project.projectDir"
+    commandLine 'deb-s3', 'upload', '--lock', '--visibility=private', '--bucket=adazza-deb-repo', '--prefix=repo',
+        '--origin=ben', '-c', 'stable', '-m', 'services', '--sign', '--endpoint=s3-us-west-1.amazonaws.com',
+        "$project.buildDir/distributions/${project.name}_${version}_x86_64.deb"
+  }
+
+  publishDeb.dependsOn buildDeb
 }
-
