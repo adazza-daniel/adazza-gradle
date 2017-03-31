@@ -38,10 +38,9 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
   ospackage {
     os = 'LINUX' // only applied to RPM
     user = adazzaServiceUser
-    group = adazzaServiceUser
+    permissionGroup = adazzaServiceUser
     //Versions don't allow - or ~ so we replace with .
     version = project.version.toString().replace('~', '.').replace('-', '.')
-    preInstall file('scripts/service-install.sh')
     arch = package_arch
   }
 
@@ -50,7 +49,6 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
   applicationdaemon {
     user = adazzaServiceUser
     command = "/opt/adazza/bin/start-adazza-service $serviceName $project.version"
-    autoStart = true
   }
 
   dependencies {
