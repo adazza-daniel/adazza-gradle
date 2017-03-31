@@ -49,6 +49,7 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
   applicationdaemon {
     user = adazzaServiceUser
     command = "/opt/adazza/bin/start-adazza-service $serviceName $project.version"
+    autoStart = false
   }
 
   dependencies {
