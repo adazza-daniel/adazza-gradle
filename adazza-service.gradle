@@ -37,18 +37,14 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
 
   ospackage {
     os = 'LINUX' // only applied to RPM
-    user = adazzaServiceUser
-    permissionGroup = adazzaServiceUser
     //Versions don't allow - or ~ so we replace with .
     version = project.version.toString().replace('~', '.').replace('-', '.')
     arch = package_arch
   }
 
-  println "Daemon command line: $name $version"
-
   applicationdaemon {
     user = adazzaServiceUser
-    command = "/opt/adazza/bin/start-adazza-service $serviceName $project.version"
+    command = "/opt/adazza/bin/start-adazza-service $project.name $project.version"
     autoStart = false
   }
 
