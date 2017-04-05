@@ -4,61 +4,62 @@ The core plugin hooks up repository and publishing plugins.
 It should not be applied directly.
 */
 buildscript {
-    repositories { jcenter() }
-    dependencies {
-        classpath 'com.netflix.nebula:nebula-publishing-plugin:4.9.1'
-        classpath 'com.netflix.nebula:nebula-release-plugin:4.1.1'
-    }
+  repositories { jcenter() }
+  dependencies {
+    classpath 'com.netflix.nebula:nebula-publishing-plugin:4.9.1'
+    classpath 'com.netflix.nebula:nebula-release-plugin:4.1.1'
+  }
 }
 
 apply plugin: "idea"
 
 allprojects {
-    apply plugin: nebula.plugin.publishing.publications.JavadocJarPlugin
-    apply plugin: nebula.plugin.publishing.publications.SourceJarPlugin
-    apply plugin: nebula.plugin.release.ReleasePlugin
-    apply plugin: nebula.plugin.publishing.maven.MavenPublishPlugin
+  apply plugin: nebula.plugin.publishing.publications.JavadocJarPlugin
+  apply plugin: nebula.plugin.publishing.publications.SourceJarPlugin
+  apply plugin: nebula.plugin.release.ReleasePlugin
+  apply plugin: nebula.plugin.publishing.maven.MavenPublishPlugin
 
+  repositories {
+    mavenCentral()
+    mavenLocal()
+    maven {
+      url "s3://adazza-maven-repo/release"
+      credentials(AwsCredentials) {
+        accessKey System.env.AWS_ACCESS_KEY_ID
+        secretKey System.env.AWS_SECRET_ACCESS_KEY
+      }
+    }
+    maven {
+      url "s3://adazza-maven-repo/snapshot"
+      credentials(AwsCredentials) {
+        accessKey System.env.AWS_ACCESS_KEY_ID
+        secretKey System.env.AWS_SECRET_ACCESS_KEY
+      }
+    }
+  }
+
+  publishing {
     repositories {
-      mavenCentral()
-      mavenLocal()
       maven {
-          url "s3://adazza-maven-repo/release"
-          credentials(AwsCredentials) {
-              accessKey System.env.AWS_ACCESS_KEY_ID
-              secretKey System.env.AWS_SECRET_ACCESS_KEY
-          }
-      }
-      maven {
+        credentials(AwsCredentials) {
+          accessKey "$System.env.AWS_ACCESS_KEY_ID"
+          secretKey "$System.env.AWS_SECRET_ACCESS_KEY"
+        }
+        if (project.version.toString().contains('SNAPSHOT')) {
           url "s3://adazza-maven-repo/snapshot"
-          credentials(AwsCredentials) {
-              accessKey System.env.AWS_ACCESS_KEY_ID
-              secretKey System.env.AWS_SECRET_ACCESS_KEY
-          }
+        } else {
+          url "s3://adazza-maven-repo/release"
+        }
       }
     }
+  }
 
-    publishing {
-        repositories {
-            maven {
-                credentials(AwsCredentials) {
-                    accessKey "$System.env.AWS_ACCESS_KEY_ID"
-                    secretKey "$System.env.AWS_SECRET_ACCESS_KEY"
-                }
-                if(project.version.toString().contains('SNAPSHOT')) {
-                    url "s3://adazza-maven-repo/snapshot"
-                } else {
-                    url "s3://adazza-maven-repo/release"
-                }
-            }
-        }
+  idea {
+    module {
+      downloadJavadoc = true // defaults to false
+      downloadSources = true
     }
-
-    idea {
-        module {
-            downloadJavadoc = true // defaults to false
-            downloadSources = true
-        }
-    }
+  }
 }
+
 
