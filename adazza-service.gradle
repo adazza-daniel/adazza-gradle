@@ -57,9 +57,11 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
 
   task publishDeb(type: Exec) {
     workingDir "$project.projectDir"
-    commandLine 'deb-s3', 'upload', '--lock', '--visibility=private', '--bucket=adazza-deb-repo', '--prefix=repo',
-        '--origin=ben', '-c', 'stable', '-m', 'services', '--sign', '--endpoint=s3-us-west-1.amazonaws.com',
-        "$project.buildDir/distributions/${project.name}_${version}_${package_arch}.deb"
+    commandLine 'deb-s3', 'upload', '--lock', '--visibility=private',
+                '--bucket=adazza-deb-repo', '--prefix=repo', '--origin=jenkins',
+                '--s3-region=us-west-1', '--sign="\'Adazza Deb Repo\'"',
+                '-c', 'stable', '-m', 'services',
+                "$project.buildDir/distributions/${project.name}_${version}_${package_arch}.deb"
   }
 
   publishDeb.dependsOn buildDeb
