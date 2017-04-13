@@ -53,6 +53,9 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
   }
 
   run {
+    if(System.getProperty("exec.args") != null) {
+      args System.getProperty("exec.args").split()
+    }
   }
 
   task publishDeb(type: Exec) {
