@@ -38,7 +38,22 @@ allprojects {
     }
   }
 
+  def customArtifactId = {
+    def simpleArtifactId = project.hasProperty('simpleArtifactId') // && simpleArtifactId.toBoolean()
+    if (simpleArtifactId) {
+      project.getName()
+    }
+    else {
+      project.hasProperty("scalaVersion") ? "${project.getName()}_$scalaVersion" : project.getName()
+    }
+  }
+
   publishing {
+    publications {
+      nebula(MavenPublication) {
+        artifactId(customArtifactId())
+      }
+    }
     repositories {
       maven {
         credentials(AwsCredentials) {

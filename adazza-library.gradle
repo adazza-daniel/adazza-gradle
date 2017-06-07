@@ -2,8 +2,8 @@
   Apply this plugin at the root level of your multi module scala library.
 */
 
-apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-core.gradle'
+apply from: 'file:///Users/danielbarajas/adazza-repos/adazza-gradle/adazza-core.gradle'
 allprojects {
-  apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
+  apply from: 'file:///Users/danielbarajas/adazza-repos/adazza-gradle/adazza-scala.gradle'
 }
 
