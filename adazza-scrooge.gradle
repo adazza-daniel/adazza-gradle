@@ -3,6 +3,8 @@ Apply this plugin at the root level of your finagle scala service
 to enable scrooge compilation for your *-api submodule.
 */
 
+apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
+
 buildscript {
   repositories {
     mavenCentral()
@@ -24,15 +26,13 @@ buildscript {
     }
   }
   dependencies {
-    // NOTE (daniel): Do I need to apply adazza-scala before hand if I need it in both buildscript and configure?
     classpath group: 'com.twitter', name: "scrooge-generator_$scalaVersion", version: "4.14.0"
-    classpath group: 'com.adazza.gradle.scrooge', name: "scrooge-gradle-plugin", version: '0.3.0-dev.1.uncommitted+scrooge-scala-versions.836e634'
-    //classpath group: 'com.adazza.gradle.scrooge', name: "scrooge-gradle-plugin", version: '0.2.0'
+    classpath group: 'com.adazza.gradle.scrooge', name: "scrooge-gradle-plugin_$scalaVersion", version: '0.3.0'
   }
 }
 
 configure(subprojects.findAll { it.name.endsWith('-api') }) {
-  apply from: 'file:///Users/danielbarajas/adazza-repos/adazza-gradle/adazza-scala.gradle'
+  apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
   apply plugin: com.adazza.gradle.scrooge.ScroogePlugin
 
   compileScrooge {

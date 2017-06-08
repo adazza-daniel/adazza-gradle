@@ -15,10 +15,10 @@ buildscript {
 def serviceName = rootProject.name.replace('-service', '')
 
 allprojects {
-  apply from: 'file:///Users/danielbarajas/adazza-repos/adazza-gradle/adazza-scala.gradle'
+  apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
 }
 
-apply from: 'file:///Users/danielbarajas/adazza-repos/adazza-gradle/adazza-core.gradle'
+apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-core.gradle'
 
 configure(subprojects.findAll { it.name.endsWith('-api') }) {
 }

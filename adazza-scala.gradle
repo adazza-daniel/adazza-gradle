@@ -9,7 +9,7 @@
 apply plugin: 'scala'
 
 if (!project.hasProperty("scalaVersion") || !['2.11', '2.12'].contains(scalaVersion)) {
-    throw new GradleException("Gradle property [scalaVersion=2.11|2.12] required.")
+    ext.scalaVersion = '2.12'
 }
 
 ext.scalaInfo = [
@@ -24,9 +24,7 @@ ext.scalaInfo = [
 ]
 
 dependencies {
-  compile("org.scala-lang:scala-library:${scalaInfo[scalaVersion].exactVersion}") {
-      transitive = true
-  }
+  compile("org.scala-lang:scala-library:${scalaInfo[scalaVersion].exactVersion}")
 }
 
 sourceCompatibility = 1.8

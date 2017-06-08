@@ -3,6 +3,9 @@ The core plugin hooks up repository and publishing plugins.
 
 It should not be applied directly.
 */
+
+apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
+
 buildscript {
   repositories { jcenter() }
   dependencies {
@@ -38,20 +41,11 @@ allprojects {
     }
   }
 
-  def customArtifactId = {
-    def simpleArtifactId = project.hasProperty('simpleArtifactId') // && simpleArtifactId.toBoolean()
-    if (simpleArtifactId) {
-      project.getName()
-    }
-    else {
-      project.hasProperty("scalaVersion") ? "${project.getName()}_$scalaVersion" : project.getName()
-    }
-  }
-
   publishing {
     publications {
       nebula(MavenPublication) {
-        artifactId(customArtifactId())
+        // Include scala version in the artifactId when publishing adazza libraries
+        artifactId("${project.getName()}_$scalaVersion")
       }
     }
     repositories {

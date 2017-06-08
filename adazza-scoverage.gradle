@@ -15,7 +15,7 @@ allprojects {
     mavenLocal()
   }
 
-  apply from: 'file:///Users/danielbarajas/adazza-repos/adazza-gradle/adazza-scala.gradle'
+  apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
   apply plugin: org.scoverage.ScoveragePlugin
 
   dependencies {
