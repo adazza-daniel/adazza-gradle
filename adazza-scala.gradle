@@ -8,18 +8,19 @@
 
 apply plugin: 'scala'
 
-if (!project.hasProperty("scalaVersion") || !['2.11', '2.12'].contains(scalaVersion)) {
+if (!project.hasProperty("scalaVersion")) {
     ext.scalaVersion = '2.12'
+}
+if (!['2.11', '2.12'].contains(scalaVersion)) {
+    throw new GradleException("Invalid value for gradle property scalaVersion provided. Choose between 2.11 or 2.12 (default).")
 }
 
 ext.scalaInfo = [
         '2.11' : [
-                'exactVersion': '2.11.11',
-                'javaVersion': '1.7'
+                'exactVersion': '2.11.11'
         ],
         '2.12' : [
-                'exactVersion': '2.12.1',
-                'javaVersion': '1.8'
+                'exactVersion': '2.12.1'
         ]
 ]
 
