@@ -5,9 +5,28 @@
  desired project scope explicitly.
 */
 
+
 apply plugin: 'scala'
-dependencies {
-  compile 'org.scala-lang:scala-library:2.12.1'
+
+if (!project.hasProperty("scalaVersion")) {
+    ext.scalaVersion = '2.12'
 }
+if (!['2.11', '2.12'].contains(scalaVersion)) {
+    throw new GradleException("Invalid value for gradle property scalaVersion provided. Choose between 2.11 or 2.12 (default).")
+}
+
+ext.scalaInfo = [
+        '2.11' : [
+                'exactVersion': '2.11.11'
+        ],
+        '2.12' : [
+                'exactVersion': '2.12.1'
+        ]
+]
+
+dependencies {
+  compile("org.scala-lang:scala-library:${scalaInfo[scalaVersion].exactVersion}")
+}
+
 sourceCompatibility = 1.8
 targetCompatibility = 1.8

@@ -8,8 +8,6 @@ buildscript {
   }
 }
 
-def scalaVersion = '2.12'
-
 allprojects {
   apply plugin: io.spring.gradle.dependencymanagement.DependencyManagementPlugin
 
