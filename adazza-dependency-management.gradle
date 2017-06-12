@@ -40,10 +40,10 @@ allprojects {
         entry "storehaus-algebra_$scalaVersion"
       }
 
-      dependencySet(group: 'com.adazza.common', version: '0.6.0') {
-        entry "common-testing"
-        entry "common-utils"
-        entry "common-finagle"
+      dependencySet(group: 'com.adazza.common', version: '0.7.0') {
+        entry "common-testing_$scalaVersion"
+        entry "common-utils_$scalaVersion"
+        entry "common-finagle_$scalaVersion"
       }
 
       dependency group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.11.85'
