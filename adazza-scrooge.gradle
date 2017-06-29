@@ -26,7 +26,6 @@ buildscript {
     }
   }
   dependencies {
-    classpath group: 'com.twitter', name: "scrooge-generator_$scalaVersion", version: "4.14.0"
     classpath group: 'com.adazza.gradle.scrooge', name: "scrooge-gradle-plugin_$scalaVersion", version: '0.3.0'
   }
 }
