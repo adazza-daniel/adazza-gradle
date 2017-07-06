@@ -46,7 +46,14 @@ allprojects {
         entry "common-finagle_$scalaVersion"
       }
 
-      dependency group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.11.85'
+      //dependencySet(group: 'com.amazonaws', version: '1.11.159') {
+      dependencySet(group: 'com.amazonaws', version: '1.11.58') {
+        entry 'aws-java-sdk-dynamodb'
+        entry 'aws-java-sdk-iam'
+        entry 'aws-java-sdk-s3'
+        entry 'aws-java-sdk-cloudformation'
+      }
+
       dependency group: 'com.github.seratch', name: "awscala_$scalaVersion", version: '0.5.9'
 
       dependency group: 'org.scalaz', name: "scalaz-core_$scalaVersion", version: '7.2.9'
