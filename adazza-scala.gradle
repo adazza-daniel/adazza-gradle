@@ -11,8 +11,10 @@ apply plugin: 'scala'
 if (!project.hasProperty("scalaVersion")) {
     ext.scalaVersion = '2.12'
 }
+
 if (!['2.11', '2.12'].contains(scalaVersion)) {
-    throw new GradleException("Invalid value for gradle property scalaVersion provided. Choose between 2.11 or 2.12 (default).")
+    throw new GradleException("Invalid value: $scalaVersion for gradle property scalaVersion provided. Choose between" +
+        " 2.11 or 2.12 (default).")
 }
 
 ext.scalaInfo = [

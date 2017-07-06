@@ -3,8 +3,7 @@ buildscript {
     jcenter()
   }
   dependencies {
-    //1.0.1 of this plugin breaks something in our publish configuration.
-    classpath "io.spring.gradle:dependency-management-plugin:0.6.1.RELEASE"
+    classpath "io.spring.gradle:dependency-management-plugin:1.0.3.RELEASE"
   }
 }
 
@@ -20,19 +19,29 @@ allprojects {
 
       dependency group: 'com.twitter', name: "bijection-core_$scalaVersion", version: '0.9.5'
 
-      dependencySet(group: 'com.twitter', version: '4.14.0') {
+      dependencySet(group: 'com.twitter', version: '4.18.0') {
         entry "scrooge-core_$scalaVersion"
+        entry "scrooge-generator_$scalaVersion"
       }
 
       //This version is linked to the version used by finagle.
       //If you change the finagle version you likely need to change this also.
-      dependencySet(group: 'com.twitter', version: '6.41.0') {
+      dependencySet(group: 'com.twitter', version: '6.45.0') {
         entry "util-core_$scalaVersion"
       }
 
-      dependencySet(group: 'com.twitter', version: '6.42.0') {
+      //Finagle
+      ext.finagleVersion = '6.45.0'
+      dependencySet(group: 'com.twitter', version: finagleVersion) {
         entry "finagle-core_$scalaVersion"
         entry "finagle-thrift_$scalaVersion"
+      }
+
+      //Finatra
+      ext.finatraVersion = "2.11.0"
+      dependencySet(group: 'com.twitter', version: finatraVersion) {
+        entry "finatra-http_$scalaVersion"
+        entry "finatra-thrift_$scalaVersion"
       }
 
       dependencySet(group: 'com.twitter', version: '0.16.0.adazza') {
@@ -64,7 +73,6 @@ allprojects {
       dependency group: 'junit', name: 'junit', version: '4.12'
       dependency group: 'com.amazonaws', name: 'DynamoDBLocal', version: '1.11.86'
       dependency group: 'com.twitter', name: "storehaus-testing_$scalaVersion", version: '0.16.0.adazza'
-
     }
   }
 }
