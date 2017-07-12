@@ -1,0 +1,47 @@
+/*
+Apply this plugin to the root build file to configure your spark job.
+*/
+buildscript {
+  repositories {
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+  dependencies {
+    classpath "com.github.jengelman.gradle.plugins:shadow:2.0.1"
+  }
+}
+
+ext.scalaVersion='2.11'
+
+apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-core.gradle'
+apply plugin: com.github.jengelman.gradle.plugins.shadow.ShadowPlugin
+apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
+
+dependencies {
+  shadow group: 'org.apache.spark', name: 'spark-core_2.11'
+  shadow group: 'org.apache.spark', name: 'spark-sql_2.11'
+  shadow group: 'org.apache.spark', name: 'spark-mllib_2.11'
+
+
+  compile "com.adazza.common:common-finagle_$scalaVersion"
+}
+
+shadowJar {
+  zip64 true
+  mergeServiceFiles()
+  dependencies {
+    exclude(dependency('com.fasterxml.jackson.core::'))
+    exclude(dependency('com.fasterxml.jackson.module::'))
+    exclude(dependency('com.fasterxml.jackson.dataformat::'))
+  }
+}
+
+publishing {
+  publications {
+    shadow(MavenPublication) { publication ->
+      project.shadow.component(publication)
+      artifactId("${project.getName()}_$scalaVersion")
+    }
+  }
+}

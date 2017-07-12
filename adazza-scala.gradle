@@ -6,6 +6,7 @@
 */
 
 
+apply plugin: 'java'
 apply plugin: 'scala'
 
 if (!project.hasProperty("scalaVersion")) {

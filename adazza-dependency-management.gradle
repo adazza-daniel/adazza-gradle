@@ -55,6 +55,18 @@ allprojects {
         entry "common-finagle_$scalaVersion"
       }
 
+      //Spark
+      dependencySet(group: 'org.apache.spark', version: '2.1.1') {
+        entry 'spark-core_2.11'
+        entry 'spark-sql_2.11'
+        entry 'spark-mllib_2.11'
+      }
+
+      //Hadoop
+      dependencySet(group: 'org.apache.hadoop', version: '2.7.3') {
+
+      }
+
       dependency group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb', version: '1.11.85'
       dependency group: 'com.github.seratch', name: "awscala_$scalaVersion", version: '0.5.9'
 
