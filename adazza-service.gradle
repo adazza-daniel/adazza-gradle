@@ -52,10 +52,6 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
     compile project(":${serviceName}-api")
   }
 
-  repositories {
-    jcenter()
-  }
-
   run {
     if(System.getProperty("exec.args") != null) {
       args System.getProperty("exec.args").split()
