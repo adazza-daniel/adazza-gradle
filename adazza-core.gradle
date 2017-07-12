@@ -24,6 +24,7 @@ allprojects {
 
   repositories {
     mavenCentral()
+    jcenter()
     mavenLocal()
     maven {
       url "s3://adazza-maven-repo/release"
