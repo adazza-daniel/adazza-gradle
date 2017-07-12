@@ -67,7 +67,8 @@ allprojects {
 
       }
 
-      dependencySet(group: 'com.amazonaws', version: '1.11.58') {
+      // Amazon AWS Java SDKs
+      dependencySet(group: 'com.amazonaws', version: '1.11.158') {
         entry 'aws-java-sdk-dynamodb'
         entry 'aws-java-sdk-iam'
         entry 'aws-java-sdk-s3'
