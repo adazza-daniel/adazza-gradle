@@ -9,18 +9,14 @@ buildscript {
   }
 }
 
-allprojects {
-  repositories {
-    mavenCentral()
-    mavenLocal()
-  }
-
-  apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
-  apply plugin: org.scoverage.ScoveragePlugin
-
-  dependencies {
-    scoverage "org.scoverage:scalac-scoverage-plugin_$scalaVersion:1.3.0", "org.scoverage:scalac-scoverage-runtime_$scalaVersion:1.3.0"
-  }
+repositories {
+  mavenCentral()
+  mavenLocal()
 }
 
+apply from: "https://raw.githubusercontent.com/adazza/adazza-gradle/${gradleBranch}/adazza-scala.gradle"
+apply plugin: org.scoverage.ScoveragePlugin
 
+dependencies {
+  scoverage "org.scoverage:scalac-scoverage-plugin_$scalaVersion:1.3.0", "org.scoverage:scalac-scoverage-runtime_$scalaVersion:1.3.0"
+}
