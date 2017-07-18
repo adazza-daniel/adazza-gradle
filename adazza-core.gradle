@@ -3,9 +3,6 @@ The core plugin hooks up repository and publishing plugins.
 
 It should not be applied directly.
 */
-
-apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
-
 buildscript {
   repositories { jcenter() }
   dependencies {

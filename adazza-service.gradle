@@ -1,5 +1,5 @@
 /*
-Apply this plugin to the root build file to configure your finagle service.
+Apply this plugin to the root build file to configure your service.
 */
 buildscript {
   repositories {
@@ -14,11 +14,11 @@ buildscript {
 // foo-server, foo-client.
 def serviceName = rootProject.name.replace('-service', '')
 
-allprojects {
-  apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
+subprojects {
+  apply from: "https://raw.githubusercontent.com/adazza/adazza-gradle/${gradleBranch}/adazza-scala.gradle"
 }
 
-apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-core.gradle'
+apply from: "https://raw.githubusercontent.com/adazza/adazza-gradle/${gradleBranch}/adazza-core.gradle"
 
 configure(subprojects.findAll { it.name.endsWith('-api') }) {
 }

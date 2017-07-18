@@ -11,6 +11,9 @@ allprojects {
   apply plugin: io.spring.gradle.dependencymanagement.DependencyManagementPlugin
 
   dependencyManagement {
+    imports {
+      mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.163'
+    }
     dependencies {
       dependency group: 'com.gu', name: "scanamo_$scalaVersion", version: '0.9.1'
       dependency group: 'com.gu', name: "scanamo-scrooge_$scalaVersion", version: '0.1.6-adazza'
@@ -67,13 +70,6 @@ allprojects {
 
       }
 
-      // Amazon AWS Java SDKs
-      dependencySet(group: 'com.amazonaws', version: '1.11.160') {
-        entry 'aws-java-sdk-dynamodb'
-        entry 'aws-java-sdk-iam'
-        entry 'aws-java-sdk-s3'
-        entry 'aws-java-sdk-cloudformation'
-      }
       dependency group: 'com.github.seratch', name: "awscala_$scalaVersion", version: '0.5.9'
 
       dependency group: 'org.scalaz', name: "scalaz-core_$scalaVersion", version: '7.2.9'

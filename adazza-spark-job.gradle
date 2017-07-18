@@ -14,9 +14,9 @@ buildscript {
 
 ext.scalaVersion='2.11'
 
-apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-core.gradle'
+apply from: "https://raw.githubusercontent.com/adazza/adazza-gradle/${gradleBranch}/adazza-core.gradle"
 apply plugin: com.github.jengelman.gradle.plugins.shadow.ShadowPlugin
-apply from: 'https://raw.githubusercontent.com/adazza/adazza-gradle/master/adazza-scala.gradle'
+apply from: "https://raw.githubusercontent.com/adazza/adazza-gradle/${gradleBranch}/adazza-scala.gradle"
 
 dependencies {
   shadow group: 'org.apache.spark', name: 'spark-core_2.11'
