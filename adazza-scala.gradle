@@ -12,7 +12,5 @@ dependencies {
   compile("org.scala-lang:scala-library:${scalaInfo[scalaVersion].exactVersion}")
 }
 
-apply from: "https://raw.githubusercontent.com/adazza/adazza-gradle/${gradleBranch}/adazza-scalariform.gradle"
-
 sourceCompatibility = 1.8
 targetCompatibility = 1.8
