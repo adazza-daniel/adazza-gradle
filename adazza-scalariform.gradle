@@ -1,0 +1,30 @@
+buildscript {
+  repositories {
+    mavenLocal()
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
+
+  dependencies {
+    // Note: Uses scalariform 0.2.0 which happens to match the version number of the plugin
+    classpath "gradle.plugin.com.hierynomus.gradle.plugins:scalariform-gradle-plugin:0.2.0"
+  }
+}
+
+apply plugin: nl.javadude.gradle.plugins.scalariform.ScalariformPlugin
+
+scalariform {
+  alignSingleLineCaseStatements = true
+  newlineAtEndOfFile = true
+  indentLocalDefs = false
+  indentSpaces = 2
+  multilineScaladocCommentsStartOnFirstLine = false
+  placeScaladocAsterisksBeneathSecondAsterisk = true
+  spacesAroundMultiImports = false
+  spacesWithinPatternBinders = true
+  danglingCloseParenthesis = 'Prevent'
+  firstArgumentOnNewline = 'Preserve'
+  doubleIndentMethodDeclaration = true
+  //doubleIndentConstructorArguments = true // Requires scalariform 0.2.1+
+}

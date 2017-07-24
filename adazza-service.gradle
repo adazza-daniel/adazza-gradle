@@ -21,6 +21,7 @@ subprojects {
 apply from: "https://raw.githubusercontent.com/adazza/adazza-gradle/${gradleBranch}/adazza-core.gradle"
 
 configure(subprojects.findAll { it.name.endsWith('-api') }) {
+
 }
 
 configure(subprojects.findAll { it.name.endsWith('-client') }) {
