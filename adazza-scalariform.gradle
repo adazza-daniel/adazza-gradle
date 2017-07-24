@@ -12,9 +12,10 @@ buildscript {
   }
 }
 
-apply plugin: nl.javadude.gradle.plugins.scalariform.ScalariformPlugin
 
 allprojects {
+  apply plugin: nl.javadude.gradle.plugins.scalariform.ScalariformPlugin
+
   scalariform {
     alignSingleLineCaseStatements = true
     newlineAtEndOfFile = true
