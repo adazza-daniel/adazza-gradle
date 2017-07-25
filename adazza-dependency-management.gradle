@@ -45,6 +45,10 @@ allprojects {
       dependencySet(group: 'com.twitter', version: finatraVersion) {
         entry "finatra-http_$scalaVersion"
         entry "finatra-thrift_$scalaVersion"
+        entry "inject-app_$scalaVersion"
+        entry "inject-core_$scalaVersion"
+        entry "inject-thrift-client_$scalaVersion"
+        entry "inject-inject-utils_$scalaVersion"
       }
 
       dependencySet(group: 'com.twitter', version: '0.16.0.adazza') {

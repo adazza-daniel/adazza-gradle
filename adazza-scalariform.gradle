@@ -31,4 +31,3 @@ allprojects {
     //doubleIndentConstructorArguments = true // Requires scalariform 0.2.1+
   }
 }
-
