@@ -51,10 +51,37 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
 
   dependencies {
     compile project(":${serviceName}-api")
+
+    compile "com.twitter:finatra-http_$scalaVersion"
+    compile "com.twitter:finatra-thrift_$scalaVersion"
+
+    compile group: 'com.amazonaws', name: 'aws-java-sdk-dynamodb'
+
+    compile group: 'com.adazza.common', name: "common-finagle_$scalaVersion"
+    compile group: 'com.adazza.common', name: "common-finatra_$scalaVersion"
+    compile group: 'com.adazza.common', name: "common-api_$scalaVersion"
+    compile group: 'com.adazza.common', name: "common-utils_$scalaVersion"
+
+    compile "ch.qos.logback:logback-classic"
+
+    testCompile group: 'org.scalatest', name: "scalatest_$scalaVersion"
+    testCompile 'junit:junit'
+
+    testCompile "com.adazza.common:common-testing_$scalaVersion"
+    testCompile "com.twitter:finatra-http_$scalaVersion:$finatraVersion:tests"
+    testCompile "com.twitter:finatra-thrift_$scalaVersion:$finatraVersion:tests"
+
+    testCompile "com.twitter:inject-app_$scalaVersion:$finatraVersion:tests"
+    testCompile "com.twitter:inject-core_$scalaVersion:$finatraVersion:tests"
+    testCompile "com.twitter:inject-server_$scalaVersion:$finatraVersion:tests"
+    testCompile "com.twitter:inject-modules_$scalaVersion:$finatraVersion:tests"
+
+    testCompile "com.google.inject.extensions:guice-testlib"
+    testCompile 'org.mockito:mockito-core'
   }
 
   run {
-    if(System.getProperty("exec.args") != null) {
+    if (System.getProperty("exec.args") != null) {
       args System.getProperty("exec.args").split()
     }
   }
@@ -62,10 +89,10 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
   task publishDeb(type: Exec) {
     workingDir "$project.projectDir"
     commandLine 'deb-s3', 'upload', '--lock', '--visibility=private',
-                '--bucket=adazza-deb-repo', '--prefix=repo', '--origin=jenkins',
-                '--s3-region=us-west-1', '--sign="Adazza Deb Repo"',
-                '-c', 'stable', '-m', 'services',
-                "$project.buildDir/distributions/${project.name}_${version}_${package_arch}.deb"
+        '--bucket=adazza-deb-repo', '--prefix=repo', '--origin=jenkins',
+        '--s3-region=us-west-1', '--sign="Adazza Deb Repo"',
+        '-c', 'stable', '-m', 'services',
+        "$project.buildDir/distributions/${project.name}_${version}_${package_arch}.deb"
   }
 
   publishDeb.dependsOn buildDeb

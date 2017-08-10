@@ -16,6 +16,6 @@ ext.scalaInfo = [
         'exactVersion': '2.11.11'
     ],
     '2.12': [
-        'exactVersion': '2.12.2'
+        'exactVersion': '2.12.3'
     ]
 ]
