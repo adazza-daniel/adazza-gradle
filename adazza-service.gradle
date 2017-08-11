@@ -43,9 +43,11 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
     arch = package_arch
   }
 
+  //We pass the service name, the version then the artifact containing the server.
+  //ex: foo 1.0.0 foo-server
   applicationdaemon {
     user = adazzaServiceUser
-    command = "/opt/adazza/bin/start-adazza-service $project.name $project.version"
+    command = "/opt/adazza/bin/start-adazza-service $serviceName $project.version $project.name"
     autoStart = false
   }
 
