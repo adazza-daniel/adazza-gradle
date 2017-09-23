@@ -60,7 +60,7 @@ allprojects {
         entry "storehaus-algebra_$scalaVersion"
       }
 
-      dependencySet(group: 'com.adazza.common', version: '0.11.0') {
+      dependencySet(group: 'com.adazza.common', version: '0.13.0') {
         entry "common-testing_$scalaVersion"
         entry "common-utils_$scalaVersion"
         entry "common-finagle_$scalaVersion"
