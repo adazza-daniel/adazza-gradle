@@ -27,3 +27,9 @@ Only Scala version 2.11 and 2.12 are currently support (exactly Scala
 versions, ie. 2.11.11 or 2.12.1 are not to be used). All other values passed
 to this project property are invalid and cause a failure in Gradle. If
 no version is provided, the Scala 2.12 is used by default.
+
+## Releasing: Using last tag
+In the scenario, where the tag is already created but you want to go through the release process, you can use the "Last Tag Strategy". This is particularly, useful for us because we publish artifacts for both scala 2.11 and 2.12 for certain libraries (currently Spark is not using scala 2.12).
+
+    git tag v1.0.0
+    ./gradlew -Prelease.useLastTag=true final
