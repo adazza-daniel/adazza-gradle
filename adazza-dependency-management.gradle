@@ -15,7 +15,7 @@ allprojects {
       mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.163'
     }
     dependencies {
-      dependency group: 'com.gu', name: "scanamo_$scalaVersion", version: '0.9.1'
+      dependency group: 'com.gu', name: "scanamo_$scalaVersion", version: '0.9.5'
       dependency group: 'com.gu', name: "scanamo-scrooge_$scalaVersion", version: '0.1.6-adazza'
 
       dependency group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
