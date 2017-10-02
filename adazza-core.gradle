@@ -6,8 +6,8 @@ It should not be applied directly.
 buildscript {
   repositories { jcenter() }
   dependencies {
-    classpath 'com.netflix.nebula:nebula-publishing-plugin:4.9.1'
-    classpath 'com.netflix.nebula:nebula-release-plugin:4.1.1'
+    classpath 'com.netflix.nebula:nebula-publishing-plugin:5.1.4'
+    classpath 'com.netflix.nebula:nebula-release-plugin:6.0.2'
   }
 }
 
@@ -68,5 +68,3 @@ allprojects {
     }
   }
 }
-
-
