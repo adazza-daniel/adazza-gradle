@@ -12,7 +12,7 @@ allprojects {
 
   dependencyManagement {
     imports {
-      mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.225'
+      mavenBom 'com.amazonaws:aws-java-sdk-bom:1.11.269'
     }
     dependencies {
       dependency group: 'com.gu', name: "scanamo_$scalaVersion", version: '0.9.5'
