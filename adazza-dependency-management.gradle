@@ -20,21 +20,22 @@ allprojects {
 
       dependency group: 'ch.qos.logback', name: 'logback-classic', version: '1.1.7'
 
-      dependency group: 'com.twitter', name: "bijection-core_$scalaVersion", version: '0.9.5'
+      dependency group: 'com.twitter', name: "bijection-core_$scalaVersion", version: '0.9.6'
 
-      dependencySet(group: 'com.twitter', version: '4.18.0') {
+      ext.twitterLibVersion='18.1.0'
+      dependencySet(group: 'com.twitter', version: twitterLibVersion) {
         entry "scrooge-core_$scalaVersion"
         entry "scrooge-generator_$scalaVersion"
       }
 
       //This version is linked to the version used by finagle.
       //If you change the finagle version you likely need to change this also.
-      dependencySet(group: 'com.twitter', version: '6.45.0') {
+      dependencySet(group: 'com.twitter', version: twitterLibVersion) {
         entry "util-core_$scalaVersion"
       }
 
       //Finagle
-      ext.finagleVersion = '6.45.0'
+      ext.finagleVersion = twitterLibVersion
       dependencySet(group: 'com.twitter', version: finagleVersion) {
         entry "finagle-core_$scalaVersion"
         entry "finagle-thrift_$scalaVersion"
@@ -44,7 +45,7 @@ allprojects {
       dependency group: "ch.qos.logback", name: "logback-classic", version: "1.0.13"
 
       //Finatra
-      ext.finatraVersion = "2.11.0"
+      ext.finatraVersion = twitterLibVersion
       dependencySet(group: 'com.twitter', version: finatraVersion) {
         entry "finatra-http_$scalaVersion"
         entry "finatra-thrift_$scalaVersion"
@@ -53,11 +54,6 @@ allprojects {
         entry "inject-slf4j_$scalaVersion"
         entry "inject-thrift-client_$scalaVersion"
         entry "inject-inject-utils_$scalaVersion"
-      }
-
-      dependencySet(group: 'com.twitter', version: '0.16.0.adazza') {
-        entry "storehaus-core_$scalaVersion"
-        entry "storehaus-algebra_$scalaVersion"
       }
 
       dependencySet(group: 'com.adazza.common', version: '1.9.0') {

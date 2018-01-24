@@ -78,7 +78,6 @@ configure(subprojects.findAll { it.name.endsWith('-server') }) {
     testCompile "com.twitter:inject-server_$scalaVersion:$finatraVersion:tests"
     testCompile "com.twitter:inject-modules_$scalaVersion:$finatraVersion:tests"
 
-
     testCompile "com.google.inject.extensions:guice-testlib"
     testCompile 'org.mockito:mockito-core'
   }
