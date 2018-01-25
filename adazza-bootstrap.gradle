@@ -13,9 +13,9 @@ if (!['2.11', '2.12'].contains(scalaVersion)) {
 
 ext.scalaInfo = [
     '2.11': [
-        'exactVersion': '2.11.11'
+        'exactVersion': '2.11.12'
     ],
     '2.12': [
-        'exactVersion': '2.12.3'
+        'exactVersion': '2.12.4'
     ]
 ]
