@@ -102,13 +102,13 @@ allprojects {
 
       ext.jacksonVersion = '2.8.4'
       dependencySet(group: 'com.fasterxml.jackson.core', version: jacksonVersion) {
-        entry: 'jackson-databind'
-        entry: 'jackson-core'
-        entry: 'jackson-annotations'
+        entry 'jackson-databind'
+        entry 'jackson-core'
+        entry 'jackson-annotations'
       }
       dependencySet(group: 'com.fasterxml.jackson.module', version: jacksonVersion) {
-        entry: 'jackson-module-paranamer'
-        entry: "jackson-module-scala_$scalaVersion"
+        entry 'jackson-module-paranamer'
+        entry "jackson-module-scala_$scalaVersion"
       }
     }
   }
