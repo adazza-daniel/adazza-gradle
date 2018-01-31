@@ -56,7 +56,7 @@ allprojects {
         entry "inject-inject-utils_$scalaVersion"
       }
 
-      dependencySet(group: 'com.adazza.common', version: '1.11.0') {
+      dependencySet(group: 'com.adazza.common', version: '1.12.0') {
         entry "common-testing_$scalaVersion"
         entry "common-utils_$scalaVersion"
         entry "common-finagle_$scalaVersion"
