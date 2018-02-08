@@ -22,7 +22,7 @@ allprojects {
 
       dependency group: 'com.twitter', name: "bijection-core_$scalaVersion", version: '0.9.6'
 
-      ext.twitterLibVersion='18.1.0'
+      ext.twitterLibVersion='18.2.0'
       dependencySet(group: 'com.twitter', version: twitterLibVersion) {
         entry "scrooge-core_$scalaVersion"
         entry "scrooge-generator_$scalaVersion"
