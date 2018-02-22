@@ -65,7 +65,8 @@ allprojects {
       }
 
       //Spark
-      dependencySet(group: 'org.apache.spark', version: '2.1.1') {
+      ext.sparkVersion = '2.2.0'
+      dependencySet(group: 'org.apache.spark', version: sparkVersion) {
         entry 'spark-core_2.11'
         entry 'spark-sql_2.11'
         entry 'spark-mllib_2.11'
