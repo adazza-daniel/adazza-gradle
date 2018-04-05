@@ -1,0 +1,18 @@
+apply plugin: 'scalaStyle'
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath "org.github.ngbinh.scalastyle:gradle-scalastyle-plugin_$scalaVersion:1.0.0"
+    }
+}
+
+scalaStyle {
+    configLocation = "mega-project/sub-project/scalastyle_config.xml" // not sure about this
+    includeTestSourceDirectory = true
+    source = "src/main/scala"
+    testSource = "src/test/scala"
+}

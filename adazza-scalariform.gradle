@@ -1,33 +1,46 @@
 buildscript {
   repositories {
-    mavenLocal()
     maven {
       url "https://plugins.gradle.org/m2/"
     }
   }
 
   dependencies {
-    // Note: Uses scalariform 0.2.0 which happens to match the version number of the plugin
-    classpath "gradle.plugin.com.hierynomus.gradle.plugins:scalariform-gradle-plugin:0.2.0"
+    classpath "gradle.plugin.com.hierynomus.gradle.plugins:scalariform-gradle-plugin:0.3.0"
   }
 }
 
+apply plugin: nl.javadude.gradle.plugins.scalariform.ScalariformPlugin
 
+// NOTE: Explicity state all configurable options. Comment added to configuration when
+// Scala Style Guide differs from the default.
 allprojects {
-  apply plugin: nl.javadude.gradle.plugins.scalariform.ScalariformPlugin
-
-  scalariform {
-    alignSingleLineCaseStatements = true
-    newlineAtEndOfFile = true
-    indentLocalDefs = false
-    indentSpaces = 2
-    multilineScaladocCommentsStartOnFirstLine = false
-    placeScaladocAsterisksBeneathSecondAsterisk = true
-    spacesAroundMultiImports = false
-    spacesWithinPatternBinders = true
-    danglingCloseParenthesis = 'Prevent'
-    firstArgumentOnNewline = 'Preserve'
-    doubleIndentMethodDeclaration = true
-    //doubleIndentConstructorArguments = true // Requires scalariform 0.2.1+
-  }
+    scalariform {
+        alignArguments = false
+        alignParameters = false
+        alignSingleLineCaseStatements = false
+        allowParamGroupsOnNewlines = false
+        compactControlReadability = false
+        compactStringConcatenation = false
+        doubleIndentConstructorArguments = true  // Scala Style Guide
+        doubleIndentMethodDeclaration = false
+        formatXml = true
+        indentLocalDefs = true
+        indentPackageBlocks = true
+        indentWithTabs = false
+        multilineScaladocCommentsStartOnFirstLine = false
+        newlineAtEndOfFile = false
+        placeScaladocAsterisksBeneathSecondAsterisk = true  // Scala Style Guide
+        preserveSpaceBeforeArguments = false
+        rewriteArrowSymbols = false
+        singleCasePatternOnNewline = true
+        spaceBeforeColon = false
+        spaceBeforeContextColon = false
+        spaceInsideBrackets = false
+        spaceInsideParentheses = false
+        spacesAroundMultiImports = false // Scala Style Guide
+        spacesWithinPatternBinders = true
+        alignSingleLineCaseStatements.maxArrowIndent = 40
+        indentSpaces = 2
+    }
 }

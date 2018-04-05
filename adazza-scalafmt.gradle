@@ -1,0 +1,48 @@
+// scalafmt via Spotless
+//buildscript {
+//    repositories {
+//        maven {
+//            url "https://plugins.gradle.org/m2/"
+//        }
+////        mavenCentral()
+////        mavenLocal()
+//    }
+//    dependencies {
+//        classpath "com.diffplug.spotless:spotless-plugin-gradle:3.10.0"
+////        classpath group: 'com.geirsson', name: 'scalafmt-core_2.11', version: '1.4.0'
+//    }
+//}
+//
+//repositories {
+//    mavenCentral()
+//    mavenLocal()
+//}
+//
+//apply from: "https://raw.githubusercontent.com/adazza/adazza-gradle/${gradleBranch}/adazza-scala.gradle"
+//apply plugin: com.diffplug.gradle.spotless.SpotlessPlugin
+//
+//project {}
+//
+//// https://github.com/diffplug/spotless/tree/master/plugin-gradle#applying-scalafmt-to-scala-files
+//spotless {
+//    scala {
+//        scalafmt('1.4.0')
+//    }
+//}
+
+// scalafmt via gradle-scalafmt
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'cz.alenkacz:gradle-scalafmt:1.6.0'
+    }
+}
+
+//apply plugin: 'scalafmt'
+apply plugin: cz.alenkacz.gradle.scalafmt.ScalafmtPlugin
+
+scalafmt {
+    configFilePath = ".scalafmt.conf" // default location
+}
